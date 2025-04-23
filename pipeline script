@@ -1,0 +1,25 @@
+pipeline {
+    agent { 
+        label "my sample project"
+        }
+    stages {
+        stage('Git Clone') {
+            steps {
+                script {
+                checkout scm
+                }
+            }
+        }
+        stage ('build') {
+            steps {
+                sh '''
+                node -v 
+                npm -v
+                npm install 
+                CI=false 
+				npm run build 
+                '''
+            }
+        }
+    }
+}
